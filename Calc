@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to the 'Calculator'!");
+        System.out.print("Please input your math (example: 2 + 3 * 4 / 2): ");
+        String input = scanner.nextLine();
+
+        // Divide the input on tokens (operators and numbers) using space as delimiter / Dividir la entrada en tokens (números y operadores) usando el espacio como delimitador
+        String[] tokens = input.split(" ");
+        // Initialize answer with the first number / Inicializar el resultado con el primer número
+        double answer = Double.parseDouble(tokens[0]);
+
+        // Scan the token matrix to do math / Recorrer la matriz de tokens para realizar las operaciones
+        for (int i = 1; i < tokens.length - 1; i += 2) {
+            // Get the operator / Obtener el operador
+            char operator = tokens[i].charAt(0);
+            // Get next number / Obtener el siguiente número
+            double operand = Double.parseDouble(tokens[i + 1]);
+
+            // Do the math / Realizar la operación correspondiente
+            switch (operator) {
+                case '+':
+                    answer += operand;
+                    break;
+                case '-':
+                    answer -= operand;
+                    break;
+                case '*':
+                    answer *= operand;
+                    break;
+                case '/':
+                    // Verify if the number is not zero to avoid division / Verificar si el operando no es cero para evitar la división por cero
+                    if (operand != 0) {
+                        answer /= operand;
+                    } else {
+                        System.out.println("Error: It can't be divied by 0.");
+                        return;
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid operator.");
+                    return;
+            }
+        }
+
+        System.out.println("The answer is: " + answer);
+    }
+}
